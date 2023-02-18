@@ -4,7 +4,7 @@ var quizQuestion = document.querySelector(".question");
 var answerBank = document.querySelector(".answer-bank");
 var quizBox = document.querySelector(".quiz-box");
 var resultDisplay;
-var score;
+var score = 0;
 
 var quizBank = [
     {
@@ -60,18 +60,24 @@ function boxCheckAnswer(event) {
         }
         if (event.target.hasAttribute("correct")) {
             console.log("yay")
+            score += 10;
+            console.log(score);
             resultDisplay = document.createElement("h3");
             resultDisplay.classList.add("display-result");
             resultDisplay.innerHTML = "Your previous answer was correct!";
             quizBox.appendChild(resultDisplay);
         } else {
+            if (score >= 10) {
+                score -= 10;
+            };
+            console.log(score);
             resultDisplay = document.createElement("h3");
             resultDisplay.classList.add("display-result");
             resultDisplay.innerHTML = "Your previous answer was incorrect!";
             quizBox.appendChild(resultDisplay);
             console.log("nay")
         }
-        //check if yo have questions left?
+        //check if you have questions left?
         // if you don't, call endQuiz()
         //if you do, move to the next question
         // and call showQuestion()
@@ -80,18 +86,21 @@ function boxCheckAnswer(event) {
     quizBank.shift();
     
     if (!quizBank.length) {
-        endQuiz()
+        document.querySelectorAll(".quiz-button").forEach(e => e.remove());
+        endQuiz();
     } else {
         document.querySelectorAll(".quiz-button").forEach(e => e.remove());
-        
         showQuestion();
     };
 };
     
 function endQuiz() {
+    resultDisplay.remove();
     timerDisplay.textContent = ''
     document.querySelector(".start-quiz").style.display = "block";
     timeLeft = 5;
+    quizQuestion.textContent = ("Finished! \n Your final score was " + score + "." +"\n Please enter your initials below:");
+
 }
 
 // function quizTimer() {
