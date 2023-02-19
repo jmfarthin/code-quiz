@@ -173,12 +173,16 @@ function saveToStorage(newValueToSave){
 
 function loadHighScores() {
     currentStorage = JSON.parse(localStorage.getItem("saved-scores"))
+    viewHighScores.hidden = true;
+    initialsForm.hidden = true;
+    startButton.style.display = "none";
+    goBack.hidden = false;
     if(!currentStorage || !currentStorage.length){
-        return
+        quizQuestion.textContent = "No high scores!"
     } else {
-        viewHighScores.hidden = true;
-        initialsForm.hidden = true;
-        startButton.style.display = "none";
+        // viewHighScores.hidden = true;
+        // initialsForm.hidden = true;
+        // startButton.style.display = "none";
         quizQuestion.textContent = "View your score!"
         var highScoreList = document.createElement("ol");
         answerBank.appendChild(highScoreList);
@@ -190,7 +194,7 @@ function loadHighScores() {
             highScoreList.appendChild(scoreListItem);
         });
         resetButton.hidden = false;
-        goBack.hidden = false;
+        // goBack.hidden = false;
     }
     // for loop and render it
 }
@@ -200,7 +204,9 @@ var goBack = document.getElementById("go-back");
 
 resetButton.addEventListener("click", function() {
     localStorage.clear();
-    loadHighScores();
+    document.querySelectorAll("li").forEach(e => e.remove());
+    resetButton.hidden = true;
+    loadHighScores()
 });
 
 goBack.addEventListener("click", function() {

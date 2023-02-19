@@ -25,6 +25,10 @@ header div {
     border: 2px solid black;
 }
 
+.timer-box {
+    display: flex;
+}
+
 main {
     width: 100%;
     display: flex;
@@ -42,6 +46,10 @@ main section {
     margin-bottom: 50px;
 }
 
+button {
+    margin: 10px;
+}
+
 .quizBox {
     display: flex;
     flex-direction: column;
@@ -54,9 +62,11 @@ main section {
     flex-direction: column;
 }
 .quiz-button {
-    background-color: aqua;
+    min-width: 50px;
+    background-color: rgba(0, 183, 255, 0.664);
     padding: 3px 10px;
-    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 3px 3px rgba(128, 128, 128, 0.425);
 }
 
 .quiz-button:hover {
