@@ -25,11 +25,6 @@ header div {
     border: 2px solid black;
 }
 
-.timer-box {
-    display: flex;
-    border: 3px solid black;
-}
-
 main {
     width: 100%;
     display: flex;
@@ -41,7 +36,10 @@ main section {
     flex-direction: column;
     align-items: center;
     width: 75%;
-    height: 500px;
+    min-height: 500px;
+    height: auto;
+    padding-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .quizBox {
@@ -64,4 +62,8 @@ main section {
 .quiz-button:hover {
     background-color: blueviolet;
     color: whitesmoke;
+}
+
+.score-item {
+    padding-top: 5px;
 }

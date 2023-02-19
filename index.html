@@ -11,7 +11,7 @@
 <body>
     <header>
         <div>
-            <button class="high-score black-border">View high scores</button>
+            <button class="high-score">View high scores</button>
         </div>
         <div>
         <button class="start-quiz">Start Quiz</button>
@@ -24,10 +24,13 @@
     <main>
         <section class="quiz-box black-border">
             <h3 class="question">Would you like to test your Javascript knowledge?</h3>
+            <button hidden id="reset-score">RESET</button>
+            <button hidden id="go-back">GO BACK</button>
             <div class="answer-bank"></div>
-            <form class="initials-section">
-                <label for="initials">Initials</label>
-                <input type="text" name="initials" id="initials" placeholder="JS"/>
+            <form hidden class="initials-section">
+                <!-- <label for="initials">Initials</label> -->
+                <input type="text" name="initials" id="initials" placeholder="Enter your initials"/>
+                <button class="submit-score">Submit</button>
             </form>
         </section>
     </main>
