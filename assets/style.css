@@ -23,10 +23,15 @@ header div {
 
 .black-border {
     border: 2px solid black;
+    border-radius: 10px;
+    box-shadow: 0px 1px 10px 3px rgba(128, 128, 128, 0.466);
 }
 
 .timer-box {
     display: flex;
+    background-color: rgb(119, 119, 230);
+    border-radius: 5px;
+    border: 2px solid black;
 }
 
 main {
@@ -48,6 +53,9 @@ main section {
 
 button {
     margin: 10px;
+    background-color: rgb(119, 119, 230);
+    border-radius: 5px;
+    padding: 5px;
 }
 
 .quizBox {
@@ -69,9 +77,10 @@ button {
     box-shadow: 3px 3px rgba(128, 128, 128, 0.425);
 }
 
-.quiz-button:hover {
+button:hover {
     background-color: blueviolet;
     color: whitesmoke;
+    cursor: pointer;
 }
 
 .score-item {

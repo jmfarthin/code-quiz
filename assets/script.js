@@ -1,3 +1,6 @@
+// This code creates the functionality for the Javascript quiz
+
+// element selector variables
 var timerDisplay = document.querySelector(".timer-count");
 var startButton = document.querySelector(".start-quiz");
 var quizQuestion = document.querySelector(".question");
@@ -8,6 +11,7 @@ var submitScore = document.querySelector(".submit-score");
 var initials = document.getElementById("initials");
 var viewHighScores = document.querySelector(".high-score");
 
+// variables for keeping track of values
 var timer;
 var timeLeft;
 var currentIndex;
@@ -15,30 +19,41 @@ var resultDisplay;
 var score = 0;
 var newHighScore = {};
 
+//holds all of the questions and answers for quiz
 var quizBank = [
     {
-        question: "Which number is largest?",
-        answer: ["1", "2", "3", "4"],
-        correct: "4"
+        question: "Which is NOT a valid data type in Javascript?",
+        answer: ["number", "boolean", "string", "int"],
+        correct: "int"
 
     },
     {
-        question: "Which number is smallest?",
-        answer: ["1", "2", "3", "-4"],
-        correct: "-4"
+        question: "Javascript was originally used for pop-ups.",
+        answer: ["true", "false"],
+        correct: "true"
 
     },
     {
-        question: "Which choice is a number?",
-        answer: ["A", "Yes", "3", "No"],
-        correct: "3"
+        question: "If you wanted to call a certain set of instructions whenever you wanted, what would you use?",
+        answer: ["for loop", "if statement", "function", "API"],
+        correct: "function"
+    },
+    {
+        question: "If I declared const num = 10 and then num = 8, what is the value of num?",
+        answer: ["8", "NaN", "10", "none of these"],
+        correct: "10"
+    },
+    {
+        question: "_________________ are a good way to apply a set of instructions to every item in an array.",
+        answer: ["for loops", "function", "objects", "none of these"],
+        correct: "for loops"
     }
 ]
 
 
-
+// initializes the quiz, resets the timer, and hides the high score button
 function startQuiz() {
-    timeLeft = 10;
+    timeLeft = 25;
     currentIndex = 0
     showQuestion()
     viewHighScores.hidden = true;
@@ -60,8 +75,7 @@ function showQuestion() {
     }
 }
 
-// document.getElementsByClassName("quiz-box")[0].addEventListener("click", boxCheckAnswer)
-
+// checks if your selection is correct and goes to the next question or ends the quiz
 function boxCheckAnswer(event) {
     event.preventDefault()
     console.log("BOX PRESSED!")
@@ -89,14 +103,9 @@ function boxCheckAnswer(event) {
             quizBox.appendChild(resultDisplay);
             console.log("nay")
         }
-        //check if you have questions left?
-        // if you don't, call endQuiz()
-        //if you do, move to the next question
-        // and call showQuestion()
-        //remove question from quizBank
     } 
     quizBank.shift();
-    
+    // removes the quiz buttons for the next question or ends the quiz if there are no more questions
     if (!quizBank.length) {
         document.querySelectorAll(".quiz-button").forEach(e => e.remove());
         endQuiz();
@@ -105,19 +114,19 @@ function boxCheckAnswer(event) {
         showQuestion();
     };
 };
-    
+
+// removes the last question and answers, shows the user's score and allows them to enter their initials
 function endQuiz() {
     if (resultDisplay) {
         resultDisplay.remove();
     }
     document.querySelectorAll(".quiz-button").forEach(e => e.remove());
     timerDisplay.textContent = ''
-    // startButton.style.display = "block";
-    // timeLeft = 5;
     initialsForm.hidden = false;
     quizQuestion.textContent = ("Finished! Your final score was "+ score + "."+" Please enter your initials below:");
 }
 
+// creates a timer for the quiz, when it reaches 0 or if the user answers all the questions, it ends the quiz
 function quizTimer() {
     timer= setInterval(function() {
         timeLeft--;
@@ -133,23 +142,28 @@ function quizTimer() {
     }, 1000);
 }
 
+// allows user to start the quiz by clicking start button
 startButton.addEventListener("click", function () {
     quizTimer();
     startQuiz();
     document.querySelector(".start-quiz").style.display = "none";
 });
 
+// submits user's initials and score to be stored in the high score section
 submitScore.addEventListener("click", function(event) {
     event.preventDefault();
     setHighScore();
     loadHighScores();
 })
 
+// allows user to click view high score button and view all score entries
 viewHighScores.addEventListener("click", function(event){
     event.preventDefault();
     loadHighScores();
 })
 
+
+// stores initials and score as an object within an array and then to local storage
 function setHighScore() {
     newHighScore = {
         initials: initials.value,
@@ -158,6 +172,7 @@ function setHighScore() {
     saveToStorage(newHighScore);
 }
 
+// saves high scores to local storage
 function saveToStorage(newValueToSave){
     currentStorage = JSON.parse(localStorage.getItem("saved-scores"))
     if(!currentStorage || !currentStorage.length){
@@ -169,8 +184,7 @@ function saveToStorage(newValueToSave){
     localStorage.setItem("saved-scores", JSON.stringify(currentStorage))
 }
 
-// saveToStorage("Justin")
-
+// pulls scores from local storage and renders them for the user
 function loadHighScores() {
     currentStorage = JSON.parse(localStorage.getItem("saved-scores"))
     viewHighScores.hidden = true;
@@ -180,9 +194,6 @@ function loadHighScores() {
     if(!currentStorage || !currentStorage.length){
         quizQuestion.textContent = "No high scores!"
     } else {
-        // viewHighScores.hidden = true;
-        // initialsForm.hidden = true;
-        // startButton.style.display = "none";
         quizQuestion.textContent = "View your score!"
         var highScoreList = document.createElement("ol");
         answerBank.appendChild(highScoreList);
@@ -194,11 +205,10 @@ function loadHighScores() {
             highScoreList.appendChild(scoreListItem);
         });
         resetButton.hidden = false;
-        // goBack.hidden = false;
     }
-    // for loop and render it
 }
 
+// this section creates a reset and go back button and functionality
 var resetButton = document.getElementById("reset-score");
 var goBack = document.getElementById("go-back");
 
